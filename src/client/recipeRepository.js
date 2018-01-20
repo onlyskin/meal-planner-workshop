@@ -1,7 +1,15 @@
+import m from 'mithril'
+
 export function loadAllRecipes() {
-  return window.fetch('/recipes').then(r => r.json())
+  return m.request({
+      method: 'GET',
+      url: '/recipes',
+  })
 }
 
 export function loadRecipe(name) {
-  return window.fetch(`/recipes/${name}`).then(r => r.json())
+  return m.request({
+      method: 'GET',
+      url: `/recipes/${name}`,
+  })
 }

@@ -1,43 +1,24 @@
-import React from 'react'
-import ReactDOM from 'react'
 import Recipe from './recipe'
+import m from 'mithril'
 
-export default class RecipeList extends React.Component {
+function _renderRecipe(vnode, recipe) {
+    let model = vnode.attrs.model;
 
-  constructor(props) {
-    super(props)
-    this.handleChooseRecipe = this.handleChooseRecipe.bind(this)
-    this.recipesReceived = this.recipesReceived.bind(this)
-    this.renderRecipe = this.renderRecipe.bind(this)
-    this.props.recipeRepository.then(this.recipesReceived)
-    this.state = {
-      recipes: []
-    }
-  }
-
-  recipesReceived(recipes) {
-    this.setState({
-      recipes: recipes
-    })
-  }
-
-  render() {
-    return <div id='recipeList'>
-      <ul>
-      {this.state.recipes.map(this.renderRecipe)}
-      </ul>
-      <Recipe chosenRecipe={this.state.chosenRecipe} />
-      </div>
-  }
-
-  renderRecipe(recipe) {
-    return <li key={recipe}><a onClick={this.handleChooseRecipe}>{recipe}</a></li>
-  }
-
-  handleChooseRecipe(e) {
-    this.setState({
-      chosenRecipe: e.target.textContent
-    })
-  }
+    return m('li',
+            m('a',
+                {onclick: e => model.setChosenRecipe(e.target.textContent)},
+                recipe));
 }
 
+export default {
+    view: function(vnode) {
+        let recipes = vnode.attrs.recipes;
+        let renderRecipe = _renderRecipe.bind(null, vnode);
+        let chosenRecipe = vnode.attrs.chosenRecipe;
+
+        return m('#recipeList', [
+                m('ul', recipes.map(renderRecipe)),
+                m(Recipe, {chosenRecipe: chosenRecipe}),
+        ]);
+    },
+}
