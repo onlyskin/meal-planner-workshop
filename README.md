@@ -1,16 +1,3 @@
-# meal-planner-workshop
-
-This is material for a workhop teaching JavaScript, React and Test-Driven Development (TDD).
-
-To get the most out of this workshop, *you will need working knowledge of git, GitHub and the command line*. If you're attending the workshop, please follow the Getting started section below before the workshop begins.
-
-## Getting started
-
-   1. Fork this repo on your own GitHub acccount.
-   2. Clone your fork to your local machine.
-   3. Ensure you meet the prerequisites by installing the software mentioned in the Prerequisites section below.
-   4. Follow the steps in the Building section.
-
 ### Prerequisites
 
 Ensure you have [node](https://nodejs.org/en/) and [yarn](https://yarnpkg.com) installed on your machine. If you're on a Mac, you can do this quite easily if you have [Homebrew](https://brew.sh/) installed using the command:
@@ -23,9 +10,11 @@ First of, install all dependencies:
 
     yarn install
 
+To run the tests, you will first need to add a line at the top of the file `node_modules/ospec/bin/ospec`. Insert below line 2: `require("babel-register")`.
+
 Run the tests:
 
-    yarn jasmine
+    yarn ospec
 
 You should see all tests passing (there will be a message saying "0 failures").
 
